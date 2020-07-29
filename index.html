@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ time }}
+        {{ sum === 2 ?'等于二':'sbdx' }}
+    </div>
+</body>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            time: '今天是2020年7月29日16点00分',
+            sum:1+1
+        }
+    })
+</script>
+</html>
