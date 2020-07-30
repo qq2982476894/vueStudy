@@ -9,33 +9,31 @@
 </head>
 
 <body>
-    <div id="app">{{ msg }}</div>
+    <div id="app">{{ arr }}{{ obj }}</div>
     <script>
         const vm = new Vue({
             el: '#app',
             data: {
-                msg: '这波啊这波是肉蛋葱鸡'
+                arr: ['a','b','c','e'],
+                obj:{
+                    name:'wsl',
+                    age:18,
+                }
             }
         })
-        console.log(vm.msg)
-        vm.msg = '第一次更改' //同步
-        setTimeout(function () { //异步 宏任务
-            vm.msg = '第二次更改' //同步
-            console.log(vm.msg, vm.$el.innerText)
-        }, 0)
+        // 更改数组长度和利用索引修改 都不能使页面重新渲染
+        // 数组
+        vm.arr.push('push了一次')
+        vm.$delete(vm.arr,3) 
+        vm.$set(vm.arr,4,'ee')
+        Vue.set(vm.arr,0,'aa')
+        // 对象
+        vm.$set(vm.obj,'name','wangsilong')
+        Vue.set(vm.obj,'sex','realMan')
+        vm.$delete(vm.obj,'age')
 
-        Vue.nextTick(function () {
-            console.log(this)
-            vm.msg = '第三次更改';
-            console.log('Vue1')
-            console.log(vm.msg, vm.$el.innerText)
-        })
-        vm.$nextTick(function () { //异步  微任务快一些
-            console.log(this)
-            console.log('Vue2')
-            console.log(vm.msg, vm.$el.innerText)
-        })
+
     </script>
-</body>
+</body> 
 
 </html>
