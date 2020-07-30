@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./vue.js"></script>
 </head>
+
 <body>
-    <div id="app">
-        {{ time }}
-        {{ sum === 2 ?'等于二':'sbdx' }}
-    </div>
+    <div id="app">{{ msg }}</div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '这波啊这波是肉蛋葱鸡'
+            }
+        })
+        console.log(vm.msg)
+        vm.msg = '第一次更改' //同步
+        setTimeout(function () { //异步 宏任务
+            vm.msg = '第二次更改' //同步
+            console.log(vm.msg, vm.$el.innerText)
+        }, 0)
+
+        Vue.nextTick(function () {
+            console.log(this)
+            vm.msg = '第三次更改';
+            console.log('Vue1')
+            console.log(vm.msg, vm.$el.innerText)
+        })
+        vm.$nextTick(function () { //异步  微任务快一些
+            console.log(this)
+            console.log('Vue2')
+            console.log(vm.msg, vm.$el.innerText)
+        })
+    </script>
 </body>
-<script>
-    const vm = new Vue({
-        el:'#app',
-        data:{
-            time: '今天是2020年7月29日16点00分',
-            sum:1+1
-        }
-    })
-</script>
+
 </html>
